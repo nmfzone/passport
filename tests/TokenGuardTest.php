@@ -57,6 +57,10 @@ class TokenGuardTest extends TestCase
         $resourceServer->shouldReceive('validateAuthenticatedRequest')->andThrow(
             new League\OAuth2\Server\Exception\OAuthServerException('message', 500, 'error type')
         );
+        
+        $guard->user($request);
+        
+        $this->expectException(League\OAuth2\Server\Exception\OAuthServerException::class);
     }
 
     public function test_null_is_returned_if_no_user_is_found()
